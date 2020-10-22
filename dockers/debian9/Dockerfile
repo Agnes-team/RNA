@@ -20,10 +20,12 @@ RUN apt-get update --yes && apt-get install --no-install-recommends --yes \
   libarmadillo-dev
 
 RUN \
-  R -e 'chooseCRANmirror(ind=52); install.packages(c("devtools", "Rcpp","RcppArmadillo", "Matrix", "mgcv", "abind","igraph","h5","Rtsne","cluster","data.table"))'
+  R -e 'chooseCRANmirror(ind=52); install.packages(c("devtools", "Rcpp","RcppArmadillo", "Matrix", "mgcv", "abind","igraph","hdf5r","Rtsne","cluster","data.table"))'
+
+FROM bioconductor/bioconductor_docker:devel
 
 RUN \
-  R -e 'source("https://bioconductor.org/biocLite.R"); biocLite(c("pcaMethods","edgeR","Rsamtools","GenomicAlignments","GenomeInfoDb","Biostrings"),suppressAutoUpdate=TRUE,ask=FALSE,suppressUpdates=TRUE)'
+R -e 'BiocManager::install(c("pcaMethods","edgeR","Rsamtools","GenomicAlignments","GenomeInfoDb","Biostrings"),suppressAutoUpdate=TRUE,ask=FALSE,suppressUpdates=TRUE)'
 
 
 RUN useradd -m user
@@ -32,7 +34,7 @@ ENTRYPOINT ["/bin/bash"]
 WORKDIR "/home/user"
 
 RUN \
-  git clone https://github.com/velocyto-team/velocyto.R && \
+  git clone https://github.com/Agnes-team/velocyto.R && \
   mkdir -p ~/R/x86_64-redhat-linux-gnu-library/3.4
 
 RUN \
