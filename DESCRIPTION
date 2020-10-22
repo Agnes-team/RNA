@@ -32,7 +32,6 @@ Suggests:
   data.table,
   Rsamtools,
   edgeR,
-  h5
 Encoding: UTF-8
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.1.1
